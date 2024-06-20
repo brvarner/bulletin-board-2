@@ -3,6 +3,7 @@
     <h1>
       <%= @the_board.name %>
     </h1>
+    <p>Owner: <%= @the_board.user.email %></p>
   </div>
 </div>
 
@@ -11,7 +12,7 @@
 <h2>
   Add a new post
 </h2>
-
+<% if current_user %>
 <form action="/insert_post" method="post">
   <div>
     <label for="title_box">
@@ -43,7 +44,9 @@
     Add post
   </button>
 </form>
-
+<% else %>
+      <p>Must be <a href="/users/sign_in">signed in</a> to add a post.</p>
+<% end %>
 <hr>
 
 <h2>Active posts</h2>
@@ -52,6 +55,7 @@
   <tr>
     <th>Title</th>
     <th>Body</th>
+    <th>Posted by</th>
     <th>Posted on</th>
     <th>Expires on</th>
   </tr>
@@ -60,6 +64,7 @@
     <tr>
       <td><%= a_post.title %></td>
       <td><%= a_post.body %></td>
+      <td><%= a_post.user.email %></td>
       <td><%= a_post.created_at.strftime("%b %e, %Y") %></td>
       <td><%= a_post.expires_on.strftime("%b %e, %Y") %></td>
     </tr>
@@ -72,6 +77,7 @@
   <tr>
     <th>Title</th>
     <th>Body</th>
+    <th>Posted by</th>
     <th>Posted on</th>
     <th>Expired on</th>
   </tr>
@@ -80,6 +86,7 @@
     <tr>
       <td><%= a_post.title %></td>
       <td><%= a_post.body %></td>
+      <td><%= a_post.user.email %></td>
       <td><%= a_post.created_at.strftime("%b %e, %Y") %></td>
       <td><%= a_post.expires_on.strftime("%b %e, %Y") %></td>
     </tr>
