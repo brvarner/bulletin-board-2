@@ -47,6 +47,8 @@
 <% else %>
       <p>Must be <a href="/users/sign_in">signed in</a> to add a post.</p>
 <% end %>
+
+
 <hr>
 
 <h2>Active posts</h2>
@@ -58,6 +60,9 @@
     <th>Posted by</th>
     <th>Posted on</th>
     <th>Expires on</th>
+    <% if current_user %>
+      <th></th>
+    <% end %>
   </tr>
 
   <% @active_posts.each do |a_post| %>
@@ -67,6 +72,9 @@
       <td><%= a_post.user.email %></td>
       <td><%= a_post.created_at.strftime("%b %e, %Y") %></td>
       <td><%= a_post.expires_on.strftime("%b %e, %Y") %></td>
+      <% if current_user && @the_board.user == current_user.id %>
+  <td><a href="/delete_post/<%= a_post.id %>">Delete post</a></td>
+    <% end %>
     </tr>
   <% end %>
 </table>
@@ -80,6 +88,9 @@
     <th>Posted by</th>
     <th>Posted on</th>
     <th>Expired on</th>
+    <% if current_user %>
+      <th></th>
+    <% end %>
   </tr>
 
   <% @expired_posts.each do |a_post| %>
@@ -89,6 +100,9 @@
       <td><%= a_post.user.email %></td>
       <td><%= a_post.created_at.strftime("%b %e, %Y") %></td>
       <td><%= a_post.expires_on.strftime("%b %e, %Y") %></td>
+      <% if current_user && @the_board.user == current_user.id %>
+  <td><a href="/delete_post/<%= a_post.id %>">Delete post</a></td>
+<% end %>
     </tr>
   <% end %>
 </table>
